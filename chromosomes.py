@@ -21,6 +21,30 @@ class Chromosome:
         self.tour = list(args)
         self._length = len(args)
 
+    def __str__(self):
+        """
+        Format the cities as a list.
+
+        Returns: Formatted list of cities.
+
+        """
+        return '[' + ', '.join((str(city) for city in self.tour)) + ']'
+
+    def mutate(self):
+        """
+        Mutate by swapping two cities with a 1:10000 probability.
+
+        """
+        rand_val = random.randint(1, 10000)
+        # If val is not a certain value, exit.
+        if rand_val != 522:
+            return
+        # Get two random values.
+        city_1 = random.randint(0, self._length - 1)
+        city_2 = random.randint(0, self._length - 1)
+        # Swap cities.
+        self.tour[city_1], self.tour[city_2] = self.tour[city_2], self.tour[city_1]
+
     def reproduce(self, other):
         """
         Reproduce self and other into two new children using order crossover.
@@ -30,14 +54,14 @@ class Chromosome:
 
         """
         # Randomly select a start and stop position for crossing over (pick).
-        start = random.randint(0, self._length + 1)
-        end = random.randint(0, self._length + 1)
+        start = random.randint(0, self._length - 1)
+        end = random.randint(0, self._length)
         # Exit if indices are same.
         if start == end:
             return
         # Create new base tours for self and other.
         tour_self = deepcopy(self.tour)
-        tour_other = deepcopy(self.tour)
+        tour_other = deepcopy(other.tour)
         # Check which crossover method should be used.
         if start < end:
             # Cross over to self.
@@ -70,6 +94,9 @@ class Chromosome:
                 self.tour,
                 tour_other
             )
+        # Update tours.
+        self.tour = tour_self
+        other.tour = tour_other
 
     def exclusive_crossover(self, start, end, src_tour, dest_tour):
         """
