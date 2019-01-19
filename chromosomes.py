@@ -158,6 +158,21 @@ class Chromosome:
                 dest_i += 1
             src_i = (src_i + 1) % self._length
 
+    def tour_distance(self):
+        """
+        Get the tour distance for this chromosome.
+
+        Returns: Tour distance.
+
+        """
+        # Get distance from first through to last point.
+        total = 0
+        for i in range(self._length - 1):
+            total += self.tour[i].dist(self.tour[i + 1])
+        # Add distance from last back to first directly.
+        total += self.tour[-1].dist(self.tour[0])
+        return total
+
 
 class City:
     """
