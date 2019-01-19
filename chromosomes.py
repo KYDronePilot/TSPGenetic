@@ -18,21 +18,86 @@ class Chromosome:
     """
 
     def __init__(self, *args):
-        self.tour = args
+        self.tour = list(args)
         self._length = len(args)
 
-    def reproduce(self):
+    def reproduce(self, other):
         """
         Reproduce self and other into two new children using order crossover.
+
+        Args:
+            other (Chromosome): The other chromosome in reproduction.
 
         """
         # Randomly select a start and stop position for crossing over (pick).
         start = random.randint(0, self._length + 1)
         end = random.randint(0, self._length + 1)
+        # Exit if indices are same.
+        if start == end:
+            return
         # Create new base tours for self and other.
         tour_self = deepcopy(self.tour)
         tour_other = deepcopy(self.tour)
-        # Create a dict of used values
+        # Check which crossover method should be used.
+        if start < end:
+            # Cross over to self.
+            self.inclusive_crossover(
+                start,
+                end,
+                other.tour,
+                tour_self
+            )
+            # Cross over to other.
+            self.inclusive_crossover(
+                start,
+                end,
+                self.tour,
+                tour_other
+            )
+        # Else, do exclusive crossover.
+        else:
+            # Cross over to self.
+            self.exclusive_crossover(
+                start,
+                end,
+                other.tour,
+                tour_self
+            )
+            # Cross over to other.
+            self.exclusive_crossover(
+                start,
+                end,
+                self.tour,
+                tour_other
+            )
+
+    def exclusive_crossover(self, start, end, src_tour, dest_tour):
+        """
+        Cross over tours when second pick index is less than the first (exclusive).
+
+        Args:
+            start (int): Starting index of pick.
+            end (int): Ending index of pick (non-inclusive).
+            src_tour (list): List from which the tour is being crossed-over.
+            dest_tour (list): Destination tour which is being crossed into.
+
+        """
+        # Indices for starting in source and destination.
+        src_i = start
+        dest_i = end
+        # Get dict of pick cities.
+        pick = {}
+        for i in range(0, end):
+            pick[dest_tour[i]] = True
+        for i in range(start, self._length):
+            pick[dest_tour[i]] = True
+        # Cross over cities between end and start indices.
+        while dest_i < start:
+            # If city isn't in pick, bring it over.
+            if src_tour[src_i] not in pick:
+                dest_tour[dest_i] = src_tour[src_i]
+                dest_i += 1
+            src_i = (src_i + 1) % self._length
 
     def inclusive_crossover(self, start, end, src_tour, dest_tour):
         """
