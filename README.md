@@ -25,6 +25,8 @@ The algorithm was able to closely approximate (or find) the solution consistentl
 50 generations, and a probability of 1:1000 of mutating a chromosome mutation.
 
 ## How it works
+![TSP Learning Curve](img/example_learning_curve.png)
+
 This algorithm uses the order crossover method of reproduction where a certain contiguous subset ("pick") of cities is
 kept the same while the rest are pulled from the other chromosome with which it is reproducing.
 
@@ -35,7 +37,7 @@ worked much better.
 
 ## Requirements
 ### System Requirements
- * Python 3
+ * Python 3 (only tested on 3.6 and 3.7)
 ### Python Packages (`pip install ...`)
  * matplotlib
  * prettytable
