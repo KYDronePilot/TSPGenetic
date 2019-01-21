@@ -1,4 +1,5 @@
-from chromosomes import City, Chromosome
+from src.chromosomes import Chromosome
+from src.city import City
 import random
 
 cities_1 = [City(0, 0, x) for x in range(1, 5)]

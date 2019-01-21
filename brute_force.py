@@ -2,8 +2,7 @@
 Solve TSP with brute force.
 
 """
-from chromosomes import City
-
+from src.city import City
 
 assignment_cities = [
     City(1, 1, 1),
