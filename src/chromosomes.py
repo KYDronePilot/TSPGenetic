@@ -67,7 +67,7 @@ class Chromosome:
         """
         # Set up the plot.
         plt.grid(True)
-        plt.title('TSP Tour: {0}'.format(self))
+        plt.title('TSP Tour: {0}, '.format(self) + 'Dist: {0:.1f}'.format(self.get_tour_distance()))
         plt.xlabel('X')
         plt.ylabel('Y')
         city_x = [city.x for city in self.tour]

@@ -80,6 +80,8 @@ class Nucleus:
         self.calculate_all()
         # Get the divisor to limit the number of samples.
         step = len(self.samples) // resolution
+        if step == 0:
+            step = 1
         # Get samples.
         x = list(range(0, len(self.samples) + 1, step))
         y = [(self.samples + [self.chromosomes[0].tour_distance])[i] for i in x]
@@ -168,7 +170,7 @@ class Nucleus:
         self.chromosomes = new_population
         # Give the new population a chance at mutating.
         for chromosome in self.chromosomes:
-            chromosome.mutate()
+            chromosome.mutate(prob=self.mutate_prob)
 
     def random_select(self):
         """
