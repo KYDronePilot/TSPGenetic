@@ -39,6 +39,7 @@ This method of selection worked much better.
 #### Major
  * Python 3 (only tested on 3.6 and 3.7)
 #### Python Packages (`pip3 install ...`)
+Quick installation: `pip3 install -r requirements.pip`
  * matplotlib
  * prettytable
 
