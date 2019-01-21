@@ -4,9 +4,14 @@ For handling individual chromosomes.
 """
 
 import random
+import os
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 from copy import deepcopy
+
+# Where to save plots.
+PLOT_DIR = 'plots'
 
 
 class Chromosome:
@@ -17,10 +22,6 @@ class Chromosome:
         tour (list): A particular tour.
         _length (int): The tour length (number of cities).
         tour_distance (float): Current tour distance.
-        normed_td (float): Current normalized, tour distance.
-        inversed_ntd (float): Inversed, normalized, tour distance.
-        normed_intd (float): Normed, inverted, normalized, tour distance.
-        cumulative_nintd (float): Current cumulative, normalized, inversed, normalized, tour distance.
 
     """
     # Position variations of label text if there are collisions.
@@ -35,10 +36,6 @@ class Chromosome:
         self.tour = list(args)
         self._length = len(args)
         self.tour_distance = 0.0
-        self.normed_td = 0.0
-        self.inversed_ntd = 0.0
-        self.normed_intd = 0.0
-        self.cumulative_nintd = 0.0
 
     def __str__(self):
         """
@@ -105,7 +102,11 @@ class Chromosome:
                     connectionstyle='arc3,rad=0'
                 )
             )
-        plt.show()
+        # Save plot.
+        timestamp = datetime.now().strftime('%m-%d-%Y_%I-%M-%S-%p')
+        name = 'best_tour_{0}.png'.format(timestamp)
+        save_dir = os.path.join(os.path.abspath(PLOT_DIR), name)
+        plt.savefig(save_dir, dpi=200)
 
     def shuffle(self):
         """

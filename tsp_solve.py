@@ -5,6 +5,7 @@ Main file for running the program.
 """
 import sys
 import json
+import matplotlib.pyplot as plt
 
 from src.nucleus import Nucleus
 from src.city import City
@@ -111,7 +112,12 @@ if __name__ == '__main__':
     # If specified, plot the best tour and learning curve.
     if args.plot:
         nuc.chromosomes[0].plot()
+        # Clear plot.
+        plt.cla()
         nuc.plot_learning_curve()
     # If specified, print out the latest generation.
     if args.table:
         print(nuc)
+    # Print out the best tour.
+    print('Best tour:', nuc.chromosomes[0])
+    print('Distance: {0:.2f}'.format(nuc.chromosomes[0].tour_distance))
