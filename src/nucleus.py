@@ -16,14 +16,16 @@ class Nucleus:
         cities (list[src.city.City]): Cities to solve for.
         pop_size (int): Size of chromosome population (must be divisible by 4).
         samples (list): The best tour distance from each population generated.
+        mutate_prob (int): Mutation probability.
 
     """
 
-    def __init__(self, cities, pop_size):
+    def __init__(self, cities, pop_size, mutate_prob):
         self.chromosomes = []
         self.cities = cities
         self.pop_size = pop_size
         self.samples = []
+        self.mutate_prob = mutate_prob
         # Ensure population size is divisible by 4.
         if pop_size % 4 != 0:
             raise ValueError('Population size is not divisible by 4.')
@@ -56,6 +58,17 @@ class Nucleus:
             ])
         return str(table)
 
+    def evolve(self, cnt):
+        """
+        Evolve the nucleus by reproducing a set amount of times.
+
+        Args:
+            cnt (int): The number of times to reproduce.
+
+        """
+        for i in range(cnt):
+            self.reproduce_most_fit()
+
     def plot_learning_curve(self, resolution=100):
         """
         Plot learning curve of how quickly the algorithm finds the best solution.
@@ -64,6 +77,7 @@ class Nucleus:
             resolution (int): The number of samples to plot.
 
         """
+        self.calculate_all()
         # Get the divisor to limit the number of samples.
         step = len(self.samples) // resolution
         # Get samples.
@@ -122,7 +136,7 @@ class Nucleus:
         self.chromosomes = new_population
         # Give the new population a chance at mutating.
         for chromosome in self.chromosomes:
-            chromosome.mutate()
+            chromosome.mutate(prob=self.mutate_prob)
 
     def reproduce_most_fit(self):
         """
