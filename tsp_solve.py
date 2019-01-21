@@ -109,6 +109,7 @@ if __name__ == '__main__':
     nuc = Nucleus(cities, args.population_size, args.mutation_prob)
     # Evolve it.
     nuc.evolve(args.generations_cnt)
+    nuc.calculate_tour_distance()
     # If specified, plot the best tour and learning curve.
     if args.plot:
         nuc.chromosomes[0].plot()
