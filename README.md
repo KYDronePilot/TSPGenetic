@@ -22,7 +22,7 @@ The goal was to create a genetic algorithm that could solve a traveling salesman
 ```
 
 The algorithm was able to closely approximate (or find) the solution consistently using a population of 500 chromosomes,
-50 generations, and a probability of 1:1000 of mutating a chromosome mutation.
+50 generations, and a probability of 1:1000 of a chromosome mutation.
 
 ## How it works
 ![TSP Learning Curve](img/example_learning_curve.png)
@@ -30,15 +30,15 @@ The algorithm was able to closely approximate (or find) the solution consistentl
 This algorithm uses the order crossover method of reproduction where a certain contiguous subset ("pick") of cities is
 kept the same while the rest are pulled from the other chromosome with which it is reproducing.
 
-The initial presentation of the problem suggested forming a weighted pie chart of each chromosome (tour) based on how
-short the tour was and randomly selecting chromosomes for reproduction from it. This method did not appear to converge
-at all, so it was abandoned in favor of only letting the top 50% of each generation reproduce. This method of selection
-worked much better.
+The initial presentation of the problem suggested forming a pseudo weighted pie chart of each chromosome (tour) based on
+the inverse of how short the tour was and randomly selecting chromosomes for reproduction from it. This method did not 
+appear to converge at all, so it was abandoned in favor of only letting the top 50% of each generation reproduce. 
+This method of selection worked much better.
 
 ## Requirements
-### System Requirements
+#### Major
  * Python 3 (only tested on 3.6 and 3.7)
-### Python Packages (`pip install ...`)
+#### Python Packages (`pip3 install ...`)
  * matplotlib
  * prettytable
 
@@ -52,7 +52,7 @@ Args:
     -m <mutation probability>
 
 Optional Args (just the flag, no following value):
-    --plot (show best tour and learning curve plots)
+    --plot (save best tour and learning curve plots)
     --table (print table of population information after evolving)
 
 ```
@@ -61,4 +61,3 @@ Optional Args (just the flag, no following value):
 ```
 ./tsp_solve.py -p 500 -g 50 -m 1000 --plot --table
 ```
-

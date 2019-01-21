@@ -20,7 +20,7 @@ Args:
     -m <mutation probability>
 
 Optional Args (just the flag, no following value):
-    --plot (show best tour and learning curve plots)
+    --plot (save best tour and learning curve plots)
     --table (print table of population information after evolving)
 
 """
