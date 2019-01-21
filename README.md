@@ -44,7 +44,7 @@ This method of selection worked much better.
 
 ## Usage
 ```
-Usage:  python3 tsp_solve.py <args> <optional args>
+Usage:  ./tsp_solve.py <args> <optional args>
 
 Args:
     -p <population size>
